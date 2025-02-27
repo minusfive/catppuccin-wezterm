@@ -2,7 +2,7 @@ local wezterm = require("wezterm")
 
 local M = {}
 
-local colors = {
+M.colors = {
 	latte = {
 		rosewater = "#dc8a78",
 		flamingo = "#dd7878",
@@ -243,7 +243,7 @@ function M.apply_to_config(c, opts)
 
 	-- insert all flavors
 	local color_schemes = {}
-	local palette = tableMerge(colors, o.color_overrides)
+	local palette = tableMerge(M.colors, o.color_overrides)
 	for flavor, name in pairs(mappings) do
 		local spec = M.select(palette, flavor, o.accent)
     local overrides = o.token_overrides[flavor]
@@ -260,26 +260,26 @@ function M.apply_to_config(c, opts)
 			light = mappings[o.sync_flavors.light],
 		})
 		c.command_palette_bg_color = select_for_appearance(wezterm.gui.get_appearance(), {
-			dark = colors[o.sync_flavors.dark].crust,
-			light = colors[o.sync_flavors.light].crust,
+			dark = M.colors[o.sync_flavors.dark].crust,
+			light = M.colors[o.sync_flavors.light].crust,
 		})
 		c.command_palette_fg_color = select_for_appearance(wezterm.gui.get_appearance(), {
-			dark = colors[o.sync_flavors.dark].text,
-			light = colors[o.sync_flavors.light].text,
+			dark = M.colors[o.sync_flavors.dark].text,
+			light = M.colors[o.sync_flavors.light].text,
 		})
 	else
 		c.color_scheme = mappings[o.flavor]
-		c.command_palette_bg_color = colors[o.flavor].crust
-		c.command_palette_fg_color = colors[o.flavor].text
+		c.command_palette_bg_color = M.colors[o.flavor].crust
+		c.command_palette_fg_color = M.colors[o.flavor].text
 	end
 
 	local window_frame = {
-		active_titlebar_bg = colors[o.flavor].crust,
-		active_titlebar_fg = colors[o.flavor].text,
-		inactive_titlebar_bg = colors[o.flavor].crust,
-		inactive_titlebar_fg = colors[o.flavor].text,
-		button_fg = colors[o.flavor].text,
-		button_bg = colors[o.flavor].base,
+		active_titlebar_bg = M.colors[o.flavor].crust,
+		active_titlebar_fg = M.colors[o.flavor].text,
+		inactive_titlebar_bg = M.colors[o.flavor].crust,
+		inactive_titlebar_fg = M.colors[o.flavor].text,
+		button_fg = M.colors[o.flavor].text,
+		button_bg = M.colors[o.flavor].base,
 	}
 
 	if c.window_frame == nil then
